@@ -1,0 +1,6 @@
+version : '3.8'
+services:
+  ng:
+    build: ./requirements/nginx
+    ports:
+      - "80:80"

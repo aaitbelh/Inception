@@ -2,7 +2,7 @@ FROM debian:11.5
 
 COPY index.html /
 RUN apt-get update && apt-get upgrade -y && \
- apt-get install nginx -y
+ apt-get install nginx=1.18.0-6.1+deb11u2 -y
 COPY nginx.conf /etc/nginx/nginx.conf
 RUN apt-get install openssl && \
     rm -rf /var/cache/apk/*

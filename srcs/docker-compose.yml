@@ -3,4 +3,12 @@ services:
   ng:
     build: ./requirements/nginx
     ports:
-      - "80:80"
+      - "443:443"
+  wp:
+    build: ./requirements/wordpress
+    restart: always
+  db:
+    build: ./requirements/mariadb
+    ports:
+      - "3306:3306"
+

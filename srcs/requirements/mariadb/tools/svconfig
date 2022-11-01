@@ -1,0 +1,4 @@
+create database wordpress;
+create user 'aaitbelh'@'%' identified by '755608';
+GRANT ALL PRIVILEGES ON wordpress.* TO 'aaitbelh'@'%';
+flush privilege;

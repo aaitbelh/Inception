@@ -61,7 +61,7 @@ server {
 		include snippets/fastcgi-php.conf;
 		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
 		# With php-fpm (or other unix sockets):
-		#fastcgi_pass unix:/run/php/php7.4-fpm.sock;
+		#fastcgi_pass unix:/run/php/php7.3fpm.sock;
 		# With php-cgi (or other tcp sockets):
 		fastcgi_pass wp:9000;
     	#fastcgi_index index.php;

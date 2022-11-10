@@ -12,8 +12,6 @@ volumes:
         type: 'none'
         o: 'bind'
         device: /home/aaitbelh/data/mariadb
-    
-
 services:
   ng:
     depends_on:

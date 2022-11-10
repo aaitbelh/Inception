@@ -6,7 +6,6 @@ run:
 	@cd srcs && docker-compose up
 build :
 	@cd srcs && docker-compose build
-
 rmi:
 	@docker image rm --force $(docker image ls -q)
 rmv:
@@ -14,5 +13,3 @@ rmv:
 rmc:
 	@docker container rm $(docker contianer ls -q)
 clean : rmc rmv rmi
-rebuild : clean build
-	$echo "LOL"

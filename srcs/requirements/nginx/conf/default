@@ -1,3 +1,4 @@
+#
 # You should look at the following URL's in order to grasp a solid understanding
 # of Nginx configuration files in order to fully unleash the power of Nginx.
 # https://www.nginx.com/resources/wiki/start/
@@ -18,18 +19,19 @@
 # Default server configuration
 #
 server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
+	# listen 80 default_server;
+	# listen [::]:80 default_server;
 
 	# SSL configuration
 	#
 	listen 443 ssl default_server;
 	listen [::]:443 ssl default_server;
 	#ssl on;
-   	ssl_certificate      /etc/ssl/certs/apache-selfsigned.crt;
-   	ssl_certificate_key /etc/ssl/private/apache-selfsigned.key;
+	ssl_certificate   /etc/ssl/certs/nginx-selfsigned.crt;
+    ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;
    	ssl_protocols       TLSv1.2 TLSv1.3;
    	ssl_ciphers         HIGH:!aNULL:!MD5;
+	#
 	# Note: You should disable gzip for SSL traffic.
 	# See: https://bugs.debian.org/773332
 	#
@@ -54,19 +56,25 @@ server {
 		try_files $uri $uri/ =404;
 	}
 
-	# pass PHP scripts to FastCGI server
+	location /portfolio/ {
+		proxy_pass  https://pf:444/;
+	}
 	#
+	# pass PHP scripts to FastCGI server
+	location /adminer/ {
+		include snippets/fastcgi-php.conf;
+		fastcgi_param SCRIPT_FILENAME /var/www/html/adminer/index.php;
+		fastcgi_pass adm:9001;
+	}
 
 	location ~ \.php$ {
 		include snippets/fastcgi-php.conf;
-		fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+	
 		# With php-fpm (or other unix sockets):
-		#fastcgi_pass unix:/run/php/php7.3fpm.sock;
+		# fastcgi_pass unix:/run/php/php7.3-fpm.sock;
 		# With php-cgi (or other tcp sockets):
 		fastcgi_pass wp:9000;
-    	#fastcgi_index index.php;
 	}
-
 	# deny access to .htaccess files, if Apache's document root
 	# concurs with nginx's one
 	#
